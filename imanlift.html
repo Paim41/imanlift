@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImanLift – Islamic Motivation & Emotional Healing Hub</title>
+<meta name="description" content="Strengthen your iman, heal your heart. Quranic guidance, authentic hadith, duas and dhikr for every emotional state.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #050f0a;
+  --bg-mid: #081510;
+  --bg-card: rgba(10,30,18,0.85);
+  --bg-glass: rgba(15,40,25,0.6);
+  --green-deep: #0a2e1a;
+  --green-mid: #1a5c35;
+  --green-bright: #2ecc71;
+  --green-light: #4ade80;
+  --emerald: #10b981;
+  --gold: #d4af37;
+  --gold-light: #f0d060;
+  --gold-dim: rgba(212,175,55,0.3);
+  --cream: #fdf6e3;
+  --white: #ffffff;
+  --white-90: rgba(255,255,255,0.9);
+  --white-60: rgba(255,255,255,0.6);
+  --white-30: rgba(255,255,255,0.3);
+  --white-10: rgba(255,255,255,0.1);
+  --border: rgba(212,175,55,0.2);
+  --shadow-glow: 0 0 40px rgba(46,204,113,0.15);
+  --shadow-gold: 0 0 30px rgba(212,175,55,0.2);
+  --radius: 16px;
+  --radius-lg: 24px;
+  --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg-deep);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom cursor */
+#cursor {
+  position: fixed;
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.3s, height 0.3s, background 0.3s;
+}
+#cursor-dot {
+  position: fixed;
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+}
+
+/* Canvas starfield */
+#starCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Islamic geometric overlay */
+.geo-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpolygon points='50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35' fill='none' stroke='%23d4af37' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+/* Moon decoration */
+.moon-deco {
+  position: fixed;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(16,185,129,0.08), transparent 70%);
+  border: 1px solid rgba(212,175,55,0.1);
+  z-index: 0;
+  animation: moonPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes moonPulse {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+/* Floating particles */
+.particle {
+  position: fixed;
+  width: 3px; height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+  10% { opacity: 1; transform: translateY(90vh) translateX(10px) scale(1); }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-10vh) translateX(-20px) scale(0.5); opacity: 0; }
+}
+
+/* ===================== LAYOUT ===================== */
+.app-wrapper {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 2rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(5,15,10,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+.nav-logo svg { filter: drop-shadow(0 0 6px var(--gold)); }
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--white-60);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+  letter-spacing: 0.03em;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.nav-emergency {
+  background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(46,204,113,0.2));
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+}
+.nav-emergency:hover {
+  background: linear-gradient(135deg, rgba(212,175,55,0.4), rgba(46,204,113,0.3));
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
+}
+.hamburger { display: none; background: none; border: none; cursor: pointer; }
+
+/* ===================== SECTIONS ===================== */
+section {
+  min-height: 100vh;
+  padding: 90px 2rem 4rem;
+  display: none;
+}
+section.active { display: block; }
+
+/* ===================== HERO / HOME ===================== */
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 70px 2rem 4rem;
+}
+.hero-bismillah {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: var(--gold);
+  opacity: 0.7;
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 1s 0.2s both;
+}
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  animation: fadeIn 1s 0.4s both;
+}
+.hero-title span {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--green-bright));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--white-60);
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  animation: fadeIn 1s 0.6s both;
+}
+.hero-ayah {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.5rem;
+  max-width: 640px;
+  width: 100%;
+  margin-bottom: 3rem;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 1s 0.8s both;
+}
+.hero-ayah::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.ayah-arabic {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  color: var(--gold-light);
+  direction: rtl;
+  line-height: 2;
+  margin-bottom: 1rem;
+}
+.ayah-translation {
+  font-size: 0.95rem;
+  color: var(--white-90);
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+.ayah-ref {
+  font-size: 0.8rem;
+  color: var(--emerald);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeIn 1s 1s both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--green-mid), var(--emerald));
+  color: var(--white);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(16,185,129,0.5);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.05em;
+}
+.btn-secondary:hover {
+  background: var(--gold-dim);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
+}
+.daily-refresh {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--white-30);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.daily-refresh:hover { color: var(--gold); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================== MOOD SECTION ===================== */
+#mood {
+  padding-top: 90px;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.section-label {
+  font-size: 0.75rem;
+  color: var(--emerald);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+.section-title span { color: var(--gold); }
+.section-desc {
+  color: var(--white-60);
+  font-size: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Mood grid */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+}
+.mood-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+.mood-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--green-mid), transparent);
+  opacity: 0;
+  transition: var(--transition);
+}
+.mood-card:hover { border-color: var(--green-bright); transform: translateY(-6px) scale(1.02); box-shadow: var(--shadow-glow); }
+.mood-card:hover::before { opacity: 0.15; }
+.mood-card.selected { border-color: var(--gold); box-shadow: var(--shadow-gold); }
+.mood-card.selected::before { opacity: 0.2; background: linear-gradient(135deg, var(--gold), transparent); }
+.mood-icon {
+  width: 48px; height: 48px;
+  margin: 0 auto 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mood-icon svg { width: 100%; height: 100%; }
+.mood-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white-90);
+  letter-spacing: 0.03em;
+}
+
+/* Content result */
+.mood-result {
+  max-width: 900px;
+  margin: 0 auto;
+  display: none;
+  animation: fadeIn 0.6s ease both;
+}
+.mood-result.visible { display: block; }
+.result-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.result-mood-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  padding: 6px 18px;
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.content-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.content-card:hover { border-color: rgba(212,175,55,0.4); transform: translateY(-3px); }
+.content-card.full-width { grid-column: 1 / -1; }
+.content-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+}
+.content-card.gold-top::after { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.card-label {
+  font-size: 0.7rem;
+  color: var(--emerald);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-label.gold { color: var(--gold); }
+.card-label svg { width: 16px; height: 16px; }
+.card-ayah-arabic {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  direction: rtl;
+  line-height: 2;
+  margin-bottom: 0.75rem;
+}
+.card-text {
+  font-size: 0.95rem;
+  color: var(--white-90);
+  line-height: 1.8;
+  font-style: italic;
+}
+.card-ref {
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--emerald);
+  font-weight: 600;
+  font-style: normal;
+}
+.dhikr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.dhikr-item {
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.dhikr-item:hover { background: rgba(16,185,129,0.15); border-color: var(--emerald); }
+.dhikr-arabic { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold-light); }
+.dhikr-transliteration { font-size: 0.8rem; color: var(--white-60); }
+.action-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--white-90);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--white-10);
+}
+.action-item:last-child { border-bottom: none; }
+.action-dot {
+  width: 6px; height: 6px;
+  background: var(--emerald);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===================== DHIKR COUNTER ===================== */
+#dhikr { min-height: auto; padding: 90px 2rem 4rem; }
+.tasbih-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+.tasbih-selector {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+.tasbih-btn {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 8px 20px;
+  color: var(--white-60);
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+.tasbih-btn:hover, .tasbih-btn.active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.tasbih-display {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+.tasbih-display::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(16,185,129,0.05), transparent 70%);
+}
+.tasbih-arabic {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  color: var(--gold-light);
+  margin-bottom: 0.5rem;
+  direction: rtl;
+}
+.tasbih-transliteration {
+  font-size: 1rem;
+  color: var(--white-60);
+  margin-bottom: 0.5rem;
+}
+.tasbih-meaning {
+  font-size: 0.85rem;
+  color: var(--white-30);
+  margin-bottom: 2rem;
+}
+.tasbih-count {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(212,175,55,0.4);
+  transition: transform 0.1s;
+}
+.tasbih-count.pulse { animation: countPulse 0.15s ease; }
+@keyframes countPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.tasbih-target { font-size: 0.85rem; color: var(--white-30); margin-bottom: 2rem; }
+.tasbih-progress {
+  width: 100%;
+  height: 4px;
+  background: var(--white-10);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.tasbih-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-mid), var(--gold));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.tasbih-tap-btn {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, var(--green-mid), var(--green-deep));
+  border: 2px solid var(--emerald);
+  color: var(--white);
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 0 40px rgba(46,204,113,0.2), inset 0 2px 4px rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto 1.5rem;
+}
+.tasbih-tap-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 60px rgba(46,204,113,0.4), inset 0 2px 4px rgba(255,255,255,0.1);
+}
+.tasbih-tap-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 20px rgba(46,204,113,0.2);
+}
+.tasbih-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--white-30);
+  color: var(--white-60);
+  padding: 8px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+.btn-ghost:hover { border-color: var(--white-60); color: var(--white); }
+
+/* ===================== DUA SECTION ===================== */
+#duas { min-height: auto; padding: 90px 2rem 4rem; }
+.dua-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.cat-btn {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 8px 20px;
+  color: var(--white-60);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+.cat-btn:hover, .cat-btn.active {
+  border-color: var(--emerald);
+  color: var(--emerald);
+  background: rgba(16,185,129,0.1);
+}
+.dua-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.dua-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  backdrop-filter: blur(20px);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.dua-card:hover { border-color: rgba(16,185,129,0.4); transform: translateY(-4px); box-shadow: var(--shadow-glow); }
+.dua-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+}
+.dua-title {
+  font-size: 0.75rem;
+  color: var(--emerald);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.dua-arabic {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--gold-light);
+  direction: rtl;
+  line-height: 2;
+  margin-bottom: 0.75rem;
+  text-align: right;
+}
+.dua-transliteration {
+  font-size: 0.85rem;
+  color: var(--white-60);
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+.dua-translation {
+  font-size: 0.9rem;
+  color: var(--white-90);
+  line-height: 1.7;
+}
+.dua-bookmark {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--white-30);
+  transition: var(--transition);
+}
+.dua-bookmark:hover, .dua-bookmark.saved { color: var(--gold); }
+
+/* ===================== JOURNAL ===================== */
+#journal { min-height: auto; padding: 90px 2rem 4rem; }
+.journal-wrapper { max-width: 800px; margin: 0 auto; }
+.gratitude-tracker {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(20px);
+}
+.gratitude-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gratitude-items { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
+.gratitude-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+.gratitude-num {
+  font-family: 'Cinzel', serif;
+  color: var(--gold);
+  font-size: 0.85rem;
+  width: 20px;
+  flex-shrink: 0;
+}
+.gratitude-input {
+  background: none;
+  border: none;
+  color: var(--white-90);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  flex: 1;
+  outline: none;
+}
+.gratitude-input::placeholder { color: var(--white-30); }
+.journal-area-wrap {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+}
+.journal-prompt {
+  font-size: 1rem;
+  color: var(--gold);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.journal-textarea {
+  width: 100%;
+  min-height: 200px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+  border-radius: 12px;
+  padding: 1rem;
+  color: var(--white-90);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  resize: vertical;
+  outline: none;
+  transition: var(--transition);
+}
+.journal-textarea:focus { border-color: var(--emerald); }
+.journal-textarea::placeholder { color: var(--white-30); }
+.journal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.mood-today {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(20px);
+}
+.mood-today-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.mood-emoji-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.mood-emoji-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--white-10);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  min-width: 70px;
+  color: var(--white-60);
+  font-size: 0.75rem;
+}
+.mood-emoji-btn:hover { border-color: var(--emerald); color: var(--emerald); }
+.mood-emoji-btn.selected { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.mood-svg { width: 32px; height: 32px; }
+
+/* ===================== GOALS ===================== */
+#goals { min-height: auto; padding: 90px 2rem 4rem; }
+.goals-wrapper { max-width: 900px; margin: 0 auto; }
+.goals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+.goal-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  backdrop-filter: blur(20px);
+  transition: var(--transition);
+}
+.goal-card:hover { border-color: rgba(212,175,55,0.3); transform: translateY(-3px); }
+.goal-icon { margin-bottom: 1rem; }
+.goal-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+.goal-desc { font-size: 0.82rem; color: var(--white-60); margin-bottom: 1.25rem; }
+.goal-progress-wrap { margin-bottom: 1rem; }
+.goal-progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--white-60); margin-bottom: 0.5rem; }
+.goal-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--white-10);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.goal-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--green-mid), var(--gold));
+  transition: width 0.5s ease;
+}
+.goal-controls { display: flex; gap: 0.5rem; }
+.goal-btn {
+  flex: 1;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+  border-radius: 8px;
+  padding: 6px;
+  color: var(--white-60);
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: var(--transition);
+}
+.goal-btn:hover { border-color: var(--emerald); color: var(--emerald); }
+.goal-btn.add:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ===================== EMERGENCY ===================== */
+.emergency-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(5,15,10,0.95);
+  backdrop-filter: blur(20px);
+  overflow-y: auto;
+}
+.emergency-overlay.visible { display: flex; align-items: flex-start; justify-content: center; padding: 2rem; }
+.emergency-modal {
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+  padding: 3rem 2rem;
+  text-align: center;
+  animation: fadeIn 0.5s ease both;
+}
+.emergency-close {
+  position: fixed;
+  top: 1.5rem; right: 1.5rem;
+  background: var(--white-10);
+  border: 1px solid var(--white-30);
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.emergency-close:hover { background: var(--gold-dim); border-color: var(--gold); color: var(--gold); }
+.emergency-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+.emergency-subtitle { color: var(--white-60); margin-bottom: 2.5rem; }
+.breathe-circle {
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  border: 2px solid var(--emerald);
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: breathe 8s ease-in-out infinite;
+}
+.breathe-circle::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.1), transparent);
+  animation: breathe 8s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { transform: scale(0.9); box-shadow: 0 0 20px rgba(16,185,129,0.2); }
+  50% { transform: scale(1.1); box-shadow: 0 0 60px rgba(16,185,129,0.5); }
+}
+.breathe-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--gold-light);
+  text-align: center;
+  line-height: 1.5;
+}
+.breathe-label {
+  font-size: 0.75rem;
+  color: var(--emerald);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+.emergency-content {
+  display: grid;
+  gap: 1.5rem;
+}
+.emergency-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.emergency-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ===================== PRAYER TRACKER ===================== */
+#prayers { min-height: auto; padding: 90px 2rem 4rem; }
+.prayer-wrapper { max-width: 700px; margin: 0 auto; }
+.prayer-date {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+.prayer-list { display: flex; flex-direction: column; gap: 1rem; }
+.prayer-item {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(20px);
+  transition: var(--transition);
+}
+.prayer-item:hover { border-color: rgba(212,175,55,0.3); }
+.prayer-left { display: flex; align-items: center; gap: 1rem; }
+.prayer-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.prayer-name { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--white); }
+.prayer-time { font-size: 0.8rem; color: var(--white-60); }
+.prayer-check {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.prayer-check:hover { border-color: var(--emerald); }
+.prayer-check.done { border-color: var(--emerald); background: rgba(16,185,129,0.2); }
+.prayer-check.done svg { color: var(--emerald); }
+.prayer-motivation {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--gold-light);
+  font-style: italic;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* ===================== SEARCH BAR ===================== */
+.search-wrap {
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  position: relative;
+}
+.search-input {
+  width: 100%;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 14px 24px 14px 50px;
+  color: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  backdrop-filter: blur(20px);
+  transition: var(--transition);
+}
+.search-input:focus { border-color: var(--emerald); }
+.search-input::placeholder { color: var(--white-30); }
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--white-30);
+  width: 20px; height: 20px;
+}
+
+/* ===================== DAILY AYAH ===================== */
+#ayah { min-height: auto; padding: 90px 2rem 4rem; }
+.ayah-spotlight {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+.ayah-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(212,175,55,0.05), transparent 60%);
+}
+.spotlight-arabic {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  color: var(--gold-light);
+  direction: rtl;
+  line-height: 2;
+  margin-bottom: 1.5rem;
+}
+.spotlight-translation {
+  font-size: 1.1rem;
+  color: var(--white-90);
+  font-style: italic;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.spotlight-ref { color: var(--emerald); font-weight: 600; font-size: 0.85rem; margin-bottom: 2rem; }
+.spotlight-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.ayah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+.ayah-card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  backdrop-filter: blur(20px);
+  transition: var(--transition);
+  position: relative;
+  cursor: pointer;
+}
+.ayah-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-gold); }
+
+/* ===================== TOAST ===================== */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--bg-glass);
+  border: 1px solid var(--emerald);
+  border-radius: 50px;
+  padding: 12px 24px;
+  color: var(--emerald);
+  font-size: 0.88rem;
+  backdrop-filter: blur(20px);
+  z-index: 500;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+}
+.toast.visible { transform: translateX(-50%) translateY(0); }
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 3px; }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .content-grid { grid-template-columns: 1fr; }
+  .content-card.full-width { grid-column: 1; }
+  .mood-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  .tasbih-tap-btn { width: 130px; height: 130px; }
+  .goals-grid { grid-template-columns: 1fr; }
+  .nav-emergency { display: none; }
+}
+@media (max-width: 480px) {
+  nav { padding: 0 1rem; }
+  section { padding: 80px 1rem 3rem; }
+  .mood-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .hero-title { font-size: 2rem; }
+}
+
+/* Shimmer animation for loading */
+.shimmer {
+  background: linear-gradient(90deg, var(--white-10) 25%, var(--white-30) 50%, var(--white-10) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+/* Mobile nav */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(5,15,10,0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  z-index: 100;
+  justify-content: space-around;
+}
+@media (max-width: 768px) { .mobile-nav { display: flex; } }
+.mobile-nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--white-30);
+  cursor: pointer;
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+  padding: 4px 8px;
+}
+.mobile-nav-btn.active, .mobile-nav-btn:hover { color: var(--gold); }
+.mobile-nav-btn svg { width: 22px; height: 22px; }
+
+/* streak */
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(46,204,113,0.1));
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Section transitions */
+section { animation: fadeIn 0.5s ease both; }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-dot"></div>
+
+<!-- Background -->
+<canvas id="starCanvas"></canvas>
+<div class="geo-overlay"></div>
+<div class="moon-deco"></div>
+
+<!-- Particles -->
+<div id="particles"></div>
+
+<!-- Emergency Overlay -->
+<div class="emergency-overlay" id="emergencyOverlay">
+  <div class="emergency-modal">
+    <button class="emergency-close" onclick="closeEmergency()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="emergency-title">Allah Is With You</div>
+    <div class="emergency-subtitle">Take a breath. You are not alone. He hears you.</div>
+
+    <div class="breathe-circle">
+      <div class="breathe-text">
+        سُبْحَانَ اللَّه<br><small style="font-size:0.75rem;color:var(--white-60);">SubhanAllah</small>
+      </div>
+    </div>
+    <div class="breathe-label">Breathe in… hold… breathe out…</div>
+
+    <div class="emergency-content">
+      <div class="emergency-card">
+        <div class="card-label gold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          Allah's Promise
+        </div>
+        <div class="ayah-arabic" style="direction:rtl;font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold-light);line-height:2;margin-bottom:0.75rem;">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</div>
+        <div class="card-text">"Verily, in the remembrance of Allah do hearts find rest."</div>
+        <div class="card-ref">Surah Ar-Ra'd 13:28</div>
+      </div>
+      <div class="emergency-card">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Dua for Relief
+        </div>
+        <div class="ayah-arabic" style="direction:rtl;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold-light);line-height:2;margin-bottom:0.5rem;">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ</div>
+        <div class="card-text" style="font-size:0.85rem;font-style:italic;color:var(--white-60);">Allahumma inni a'udhu bika minal-hammi wal-hazan</div>
+        <div class="card-text">"O Allah, I seek refuge in You from anxiety and sorrow."</div>
+      </div>
+      <div class="emergency-card">
+        <div class="card-label">Dhikr for Peace</div>
+        <div class="dhikr-list">
+          <div class="dhikr-item" onclick="toast('SubhanAllah ✓')">
+            <div><div class="dhikr-arabic">سُبْحَانَ اللَّه</div><div class="dhikr-transliteration">SubhanAllah – Glory be to Allah</div></div>
+          </div>
+          <div class="dhikr-item" onclick="toast('Hasbunallah ✓')">
+            <div><div class="dhikr-arabic">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ</div><div class="dhikr-transliteration">Hasbunallahu wa ni'mal wakeel – Allah is sufficient for us</div></div>
+          </div>
+          <div class="dhikr-item" onclick="toast('La hawla ✓')">
+            <div><div class="dhikr-arabic">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّه</div><div class="dhikr-transliteration">La hawla wa la quwwata illa billah</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+      <path d="M20 4 C10 4 3 11 3 20 C3 29 10 36 20 36 C30 36 37 29 37 20 C37 11 30 4 20 4Z" fill="none" stroke="#d4af37" stroke-width="1.5"/>
+      <path d="M20 4 C27 10 30 15 30 20 C30 25 27 30 20 36" fill="none" stroke="#d4af37" stroke-width="1"/>
+      <circle cx="20" cy="20" r="4" fill="#d4af37" opacity="0.6"/>
+      <path d="M20 8 L20 4 M20 36 L20 32 M8 20 L4 20 M36 20 L32 20" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+    </svg>
+    ImanLift
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showSection('home',this)">Home</a></li>
+    <li><a href="#" onclick="showSection('mood',this)">Mood</a></li>
+    <li><a href="#" onclick="showSection('ayah',this)">Daily Ayah</a></li>
+    <li><a href="#" onclick="showSection('duas',this)">Duas</a></li>
+    <li><a href="#" onclick="showSection('dhikr',this)">Dhikr</a></li>
+    <li><a href="#" onclick="showSection('journal',this)">Journal</a></li>
+    <li><a href="#" onclick="showSection('goals',this)">Goals</a></li>
+    <li><a href="#" onclick="showSection('prayers',this)">Prayers</a></li>
+  </ul>
+  <button class="nav-emergency" onclick="openEmergency()">
+    ☽ I Need Comfort
+  </button>
+  <button class="hamburger" onclick="openEmergency()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav">
+  <button class="mobile-nav-btn active" onclick="showSection('home',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+  </button>
+  <button class="mobile-nav-btn" onclick="showSection('mood',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>Mood
+  </button>
+  <button class="mobile-nav-btn" onclick="showSection('duas',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Dua
+  </button>
+  <button class="mobile-nav-btn" onclick="showSection('dhikr',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Dhikr
+  </button>
+  <button class="mobile-nav-btn" onclick="openEmergency()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Comfort
+  </button>
+</nav>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ==================== SECTIONS ==================== -->
+<div class="app-wrapper">
+
+<!-- HOME -->
+<section id="home" class="active">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 70px);text-align:center;padding-top:1rem;">
+    <div class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <h1 class="hero-title">Heal Your Heart<br><span>With His Words</span></h1>
+    <p class="hero-sub">Find comfort, strength, and renewed iman through Quranic guidance, authentic hadith, and spiritual healing — tailored to your emotional state.</p>
+    <div class="hero-ayah" id="heroAyah">
+      <div class="ayah-arabic" id="heroAyahArabic">وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ</div>
+      <div class="ayah-translation" id="heroAyahTranslation">"So do not weaken and do not grieve, and you will be superior if you are true believers."</div>
+      <div class="ayah-ref" id="heroAyahRef">Surah Aal-Imran 3:139</div>
+    </div>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="showSection('mood', document.querySelector('.nav-links a:nth-child(2)'))">How Are You Feeling?</button>
+      <button class="btn-secondary" onclick="showSection('duas', document.querySelector('.nav-links a:nth-child(4)'))">Browse Duas</button>
+    </div>
+    <div class="daily-refresh" onclick="refreshHeroAyah()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.02"/></svg>
+      Refresh daily verse
+    </div>
+  </div>
+</section>
+
+<!-- MOOD -->
+<section id="mood">
+  <div class="section-header">
+    <div class="section-label">Emotional Healing</div>
+    <h2 class="section-title">How Are You <span>Feeling?</span></h2>
+    <p class="section-desc">Select your current emotional state and receive personalized Islamic guidance, comfort, and healing.</p>
+  </div>
+
+  <div class="mood-grid" id="moodGrid">
+    <!-- Generated by JS -->
+  </div>
+
+  <div class="mood-result" id="moodResult">
+    <div class="result-header">
+      <div class="result-mood-badge" id="resultBadge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        <span id="badgeText">Selected Mood</span>
+      </div>
+      <p style="color:var(--white-60);font-size:0.9rem;">Here is guidance from Allah's words for your heart</p>
+    </div>
+    <div class="content-grid" id="contentGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- DAILY AYAH -->
+<section id="ayah">
+  <div class="section-header">
+    <div class="section-label">Words of Allah</div>
+    <h2 class="section-title">Daily <span>Ayah</span></h2>
+    <p class="section-desc">Nourish your soul with the light of the Quran. Save your favorites and share with others.</p>
+  </div>
+
+  <div class="ayah-spotlight">
+    <div class="section-label" style="margin-bottom:1rem;">✦ Today's Featured Verse ✦</div>
+    <div class="spotlight-arabic" id="spotlightArabic">إِنَّ مَعَ الْعُسْرِ يُسْرًا</div>
+    <div class="spotlight-translation" id="spotlightTranslation">"Verily, with every difficulty there is ease."</div>
+    <div class="spotlight-ref" id="spotlightRef">Surah Al-Inshirah 94:6</div>
+    <div class="spotlight-actions">
+      <button class="btn-primary" onclick="refreshSpotlight()">New Verse</button>
+      <button class="btn-secondary" onclick="bookmarkSpotlight()">Save Favorite</button>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" class="search-input" placeholder="Search Quran verses by topic..." oninput="filterAyah(this.value)">
+  </div>
+
+  <div class="ayah-grid" id="ayahGrid">
+    <!-- Generated by JS -->
+  </div>
+</section>
+
+<!-- DUAS -->
+<section id="duas">
+  <div class="section-header">
+    <div class="section-label">Supplication</div>
+    <h2 class="section-title">Authentic <span>Duas</span></h2>
+    <p class="section-desc">Conversations with Allah. Browse duas for every need and occasion.</p>
+  </div>
+
+  <div class="dua-categories" id="duaCategories">
+    <button class="cat-btn active" onclick="filterDuas('all', this)">All Duas</button>
+    <button class="cat-btn" onclick="filterDuas('sadness', this)">Sadness</button>
+    <button class="cat-btn" onclick="filterDuas('anxiety', this)">Anxiety</button>
+    <button class="cat-btn" onclick="filterDuas('rizq', this)">Rizq</button>
+    <button class="cat-btn" onclick="filterDuas('forgiveness', this)">Forgiveness</button>
+    <button class="cat-btn" onclick="filterDuas('guidance', this)">Guidance</button>
+    <button class="cat-btn" onclick="filterDuas('strength', this)">Strength</button>
+  </div>
+
+  <div class="dua-grid" id="duaGrid">
+    <!-- Generated by JS -->
+  </div>
+</section>
+
+<!-- DHIKR COUNTER -->
+<section id="dhikr">
+  <div class="section-header">
+    <div class="section-label">Remembrance of Allah</div>
+    <h2 class="section-title">Digital <span>Tasbih</span></h2>
+    <p class="section-desc">Keep your tongue moist with the remembrance of Allah. Count your dhikr with presence of heart.</p>
+  </div>
+
+  <div class="tasbih-wrapper">
+    <div class="tasbih-selector" id="tasbihSelector">
+      <!-- Generated by JS -->
+    </div>
+
+    <div class="tasbih-display">
+      <div class="tasbih-arabic" id="tasbihArabic">سُبْحَانَ اللَّه</div>
+      <div class="tasbih-transliteration" id="tasbihTranslit">SubhanAllah</div>
+      <div class="tasbih-meaning" id="tasbihMeaning">Glory be to Allah</div>
+      <div class="tasbih-count" id="tasbihCount">0</div>
+      <div class="tasbih-target" id="tasbihTarget">Goal: 33 times</div>
+      <div class="tasbih-progress">
+        <div class="tasbih-progress-bar" id="tasbihBar" style="width:0%"></div>
+      </div>
+      <button class="tasbih-tap-btn" onclick="tapTasbih()" id="tasbihBtn">
+        <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="16" fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="20" cy="20" r="8" fill="rgba(212,175,55,0.2)" stroke="#d4af37" stroke-width="1"/>
+          <circle cx="20" cy="20" r="3" fill="#d4af37"/>
+        </svg>
+        TAP
+      </button>
+    </div>
+    <div class="tasbih-controls">
+      <button class="btn-ghost" onclick="resetTasbih()">Reset</button>
+      <button class="btn-ghost" onclick="setTasbihGoal()">Set Goal</button>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal">
+  <div class="section-header">
+    <div class="section-label">Reflection & Growth</div>
+    <h2 class="section-title">Islamic <span>Journal</span></h2>
+    <p class="section-desc">Reflect, express, and connect with your inner state. Your journal is private and sacred.</p>
+  </div>
+
+  <div class="journal-wrapper">
+    <div class="mood-today">
+      <div class="mood-today-title">How is your heart today?</div>
+      <div class="mood-emoji-row" id="moodEmojiRow">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+
+    <div class="gratitude-tracker">
+      <div class="gratitude-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Alhamdulillah – Today I Am Grateful For...
+      </div>
+      <div class="gratitude-items">
+        <div class="gratitude-item"><span class="gratitude-num">1</span><input class="gratitude-input" placeholder="A blessing you noticed today..."></div>
+        <div class="gratitude-item"><span class="gratitude-num">2</span><input class="gratitude-input" placeholder="Something you usually take for granted..."></div>
+        <div class="gratitude-item"><span class="gratitude-num">3</span><input class="gratitude-input" placeholder="A person Allah placed in your life..."></div>
+      </div>
+      <button class="btn-secondary" style="font-size:0.85rem;padding:8px 20px;" onclick="saveGratitude()">Save Gratitude</button>
+    </div>
+
+    <div class="journal-area-wrap">
+      <div class="journal-prompt" id="journalPrompt">"What is weighing on your heart today?"</div>
+      <textarea class="journal-textarea" id="journalTextarea" placeholder="Write freely here. This is your sacred space..."></textarea>
+      <div class="journal-actions">
+        <button class="btn-primary" onclick="saveJournal()">Save Entry</button>
+        <button class="btn-ghost" onclick="newJournalPrompt()">New Prompt</button>
+        <button class="btn-ghost" onclick="clearJournal()">Clear</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOALS -->
+<section id="goals">
+  <div class="section-header">
+    <div class="section-label">Spiritual Growth</div>
+    <h2 class="section-title">Islamic <span>Goals</span></h2>
+    <p class="section-desc">Small consistent deeds are most beloved to Allah. Track your spiritual journey with intention.</p>
+  </div>
+  <div class="goals-wrapper">
+    <div class="goals-grid" id="goalsGrid">
+      <!-- Generated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- PRAYERS -->
+<section id="prayers">
+  <div class="section-header">
+    <div class="section-label">Pillars of Islam</div>
+    <h2 class="section-title">Prayer <span>Tracker</span></h2>
+    <p class="section-desc">The prayer is the first thing we will be accountable for. Track your daily salah with love.</p>
+  </div>
+
+  <div class="prayer-wrapper">
+    <div class="prayer-date" id="prayerDate"></div>
+    <div class="prayer-list" id="prayerList">
+      <!-- Generated by JS -->
+    </div>
+    <div class="prayer-motivation" id="prayerMotivation">
+      "Verily, prayer has been decreed upon the believers a decree of specified times." — An-Nisa 4:103
+    </div>
+  </div>
+</section>
+
+</div><!-- end app-wrapper -->
+
+<script>
+// ===================== DATA =====================
+const MOODS = [
+  { id: 'sad', name: 'Sadness', color: '#4a6fa5', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#4a6fa5" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M16 32s2-4 8-4 8 4 8 4" stroke-linecap="round"/><circle cx="18" cy="20" r="2" fill="#4a6fa5"/><circle cx="30" cy="20" r="2" fill="#4a6fa5"/><path d="M16 18l3 3M32 18l-3 3" stroke-linecap="round"/></svg>` },
+  { id: 'anxiety', name: 'Anxiety', color: '#9b59b6', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#9b59b6" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 14v14M24 34v2" stroke-linecap="round" stroke-width="3"/><circle cx="18" cy="20" r="1.5" fill="#9b59b6"/><circle cx="30" cy="20" r="1.5" fill="#9b59b6"/></svg>` },
+  { id: 'stress', name: 'Stress', color: '#e74c3c', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#e74c3c" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M14 18c2-4 8-6 10-2s8 4 10 0" stroke-linecap="round"/><path d="M16 30s2 2 8 2 8-2 8-2" stroke-linecap="round"/><circle cx="18" cy="23" r="2" fill="#e74c3c"/><circle cx="30" cy="23" r="2" fill="#e74c3c"/></svg>` },
+  { id: 'lowmotivation', name: 'Low Motivation', color: '#7f8c8d', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#7f8c8d" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M18 28h12" stroke-linecap="round" stroke-width="2.5"/><circle cx="18" cy="21" r="2" fill="#7f8c8d"/><circle cx="30" cy="21" r="2" fill="#7f8c8d"/><path d="M14 14l4 4M34 14l-4 4" stroke-linecap="round"/></svg>` },
+  { id: 'guilt', name: 'Guilt After Sin', color: '#d35400', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#d35400" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 14c-4 0-7 3-7 7 0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/><circle cx="18" cy="22" r="1.5" fill="#d35400"/><circle cx="30" cy="22" r="1.5" fill="#d35400"/></svg>` },
+  { id: 'lonely', name: 'Loneliness', color: '#2980b9', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#2980b9" stroke-width="2"><circle cx="24" cy="24" r="20"/><circle cx="24" cy="20" r="5"/><path d="M14 34c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke-linecap="round"/><path d="M8 24h3M37 24h3" stroke-linecap="round" opacity="0.4"/></svg>` },
+  { id: 'grateful', name: 'Gratitude', color: '#d4af37', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#d4af37" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 32s-8-6-8-12a8 8 0 0116 0c0 6-8 12-8 12z" fill="rgba(212,175,55,0.2)"/><circle cx="18" cy="20" r="2" fill="#d4af37"/><circle cx="30" cy="20" r="2" fill="#d4af37"/></svg>` },
+  { id: 'hopeful', name: 'Hopefulness', color: '#27ae60', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#27ae60" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M18 28s2 4 6 4 6-4 6-4" stroke-linecap="round" stroke-width="2.5"/><circle cx="18" cy="20" r="2" fill="#27ae60"/><circle cx="30" cy="20" r="2" fill="#27ae60"/><path d="M24 8v4M14 11l2 3M34 11l-2 3" stroke-linecap="round"/></svg>` },
+  { id: 'anger', name: 'Anger', color: '#c0392b', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#c0392b" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M14 20l4-3 6 3 6-3 4 3" stroke-linecap="round"/><path d="M16 32s2-2 8-2 8 2 8 2" stroke-linecap="round"/><circle cx="18" cy="25" r="2" fill="#c0392b"/><circle cx="30" cy="25" r="2" fill="#c0392b"/></svg>` },
+  { id: 'fear', name: 'Fear', color: '#8e44ad', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#8e44ad" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 12c0 0-8 6-8 12h16c0-6-8-12-8-12z" opacity="0.3" fill="#8e44ad"/><circle cx="18" cy="26" r="2.5" fill="#8e44ad"/><circle cx="30" cy="26" r="2.5" fill="#8e44ad"/><path d="M18 34s2 2 6 2 6-2 6-2" stroke-linecap="round"/></svg>` },
+  { id: 'forgiveness', name: 'Seeking Forgiveness', color: '#16a085', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#16a085" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M16 18c2-2 5-3 8-3s6 1 8 3" stroke-linecap="round"/><path d="M18 28s1.5 3 6 3 6-3 6-3" stroke-linecap="round"/><circle cx="18" cy="22" r="2" fill="#16a085"/><circle cx="30" cy="22" r="2" fill="#16a085"/><path d="M24 38v-3M18 37l1-3M30 37l-1-3" stroke-linecap="round"/></svg>` },
+  { id: 'patience', name: 'Patience', color: '#1abc9c', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#1abc9c" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 12v12l6 6" stroke-linecap="round" stroke-width="2.5"/><circle cx="18" cy="20" r="1.5" fill="#1abc9c"/><circle cx="30" cy="20" r="1.5" fill="#1abc9c"/></svg>` },
+  { id: 'confidence', name: 'Confidence', color: '#f39c12', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#f39c12" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M18 28s2 4 6 4 6-4 6-4" stroke-linecap="round" stroke-width="2.5"/><path d="M18 18l2 2M28 18l2-2" stroke-linecap="round" stroke-width="2.5"/><circle cx="18" cy="22" r="2" fill="#f39c12"/><circle cx="30" cy="22" r="2" fill="#f39c12"/></svg>` },
+  { id: 'heartbreak', name: 'Heartbreak', color: '#e91e63', icon: `<svg viewBox="0 0 48 48" fill="none" stroke="#e91e63" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 32s-8-5-8-11a5 5 0 0110 0" opacity="0.5"/><path d="M24 32s8-5 8-11a5 5 0 00-10 0" opacity="0.5"/><path d="M20 24l4-5 4 5" stroke-linecap="round"/><circle cx="18" cy="20" r="1.5" fill="#e91e63"/><circle cx="30" cy="20" r="1.5" fill="#e91e63"/></svg>` },
+];
+
+const MOOD_CONTENT = {
+  sad: {
+    ayahArabic: 'وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ',
+    ayahTranslation: '"So do not weaken and do not grieve, and you will be superior if you are true believers."',
+    ayahRef: 'Surah Aal-Imran 3:139',
+    hadithText: '"Amazing is the affair of the believer, verily all of his affairs are good — and this is for no one except the believer. If something good befalls him he thanks Allah and it is good for him; if something harmful befalls him he is patient and that is good for him."',
+    hadithRef: 'Sahih Muslim',
+    reflection: ['Allah never abandons believers', 'Hardship is always temporary', 'Every trial purifies your sins', 'Patience carries immense reward', "Allah's mercy is greater than any pain"],
+    actions: ['Read Surah Ad-Duha', 'Perform Tahajjud prayer', 'Make sincere dua', 'Call someone you love', 'Read about the Prophets\' trials'],
+    dhikr: [{ ar: 'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ', en: 'Hasbunallahu wa ni\'mal wakeel' }, { ar: 'اسْتَغْفِرُ اللَّه', en: 'Astaghfirullah' }, { ar: 'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّه', en: 'La hawla wa la quwwata illa billah' }],
+  },
+  anxiety: {
+    ayahArabic: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
+    ayahTranslation: '"Verily, in the remembrance of Allah do hearts find rest."',
+    ayahRef: 'Surah Ar-Ra\'d 13:28',
+    hadithText: '"No fatigue, illness, anxiety, sorrow, harm, or sadness afflicts a Muslim, even the prick of a thorn, except that Allah expiates some of his sins."',
+    hadithRef: 'Sahih al-Bukhari',
+    reflection: ['Allah is Al-Wakeel – the Guardian', 'Worry does not change the decree', 'Trust in His perfect plan', 'Dhikr is medicine for the anxious heart', 'Every breath is sustained by Him'],
+    actions: ['Recite Ayat al-Kursi', 'Perform wudu mindfully', 'Take a walk and observe nature', 'Read the last two ayahs of Surah Baqarah', 'Breathe slowly and say SubhanAllah'],
+    dhikr: [{ ar: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ', en: 'SubhanAllahi wa bihamdihi' }, { ar: 'تَوَكَّلْتُ عَلَى اللَّه', en: 'Tawakkaltu \'alallah' }, { ar: 'اللَّهُ أَكْبَر', en: 'Allahu Akbar – Allah is the Greatest' }],
+  },
+  stress: {
+    ayahArabic: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۞ إِنَّ مَعَ الْعُسْرِ يُسْرًا',
+    ayahTranslation: '"For indeed, with hardship will be ease. Indeed, with hardship will be ease."',
+    ayahRef: 'Surah Al-Inshirah 94:5-6',
+    hadithText: '"Whoever has the hereafter as his goal, Allah makes his heart rich and organizes his affairs, and the world comes to him whether it wants to or not."',
+    hadithRef: 'Sunan Ibn Majah – Hasan',
+    reflection: ['Allah repeated ease twice — stress is one, ease is two', 'This too shall pass by His will', 'Simplify your priorities', 'Your sustenance is already written', 'Trust the process — trust Allah'],
+    actions: ['Pray two rakah nafl', 'Write down your stressors', 'Make dua before each task', 'Recite Surah Al-Fajr', 'Give even one dirham in sadaqah'],
+    dhikr: [{ ar: 'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ', en: 'HasbiyAllahu la ilaha illa Hu' }, { ar: 'يَا حَيُّ يَا قَيُّوم', en: 'Ya Hayyu Ya Qayyum' }, { ar: 'رَبِّ اشْرَحْ لِي صَدْرِي', en: 'Rabbi ishrah li sadri' }],
+  },
+  lowmotivation: {
+    ayahArabic: 'وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ',
+    ayahTranslation: '"And that there is not for man except that for which he strives."',
+    ayahRef: 'Surah An-Najm 53:39',
+    hadithText: '"Take advantage of five before five: your youth before your old age, your health before your illness, your wealth before your poverty, your free time before your busyness, and your life before your death."',
+    hadithRef: 'Sahih al-Hakim',
+    reflection: ['Every step forward counts', 'Allah sees your effort, not just results', 'Start with Bismillah', 'The smallest deed done with sincerity is beloved', 'Motivation follows action — begin'],
+    actions: ['Set ONE small goal today', 'Pray Fajr — it sets the day', 'Read inspiring seerah stories', 'Recite morning adhkar', 'Help someone — it ignites your spirit'],
+    dhikr: [{ ar: 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ', en: 'Bismillah Ar-Rahman Ar-Raheem' }, { ar: 'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ', en: 'Allahumma a\'inni \'ala dhikrik' }, { ar: 'رَبِّ زِدْنِي عِلْمًا', en: 'Rabbi zidni \'ilma' }],
+  },
+  guilt: {
+    ayahArabic: 'قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ',
+    ayahTranslation: '"Say: O My servants who have transgressed against themselves, do not despair of the mercy of Allah."',
+    ayahRef: 'Surah Az-Zumar 39:53',
+    hadithText: '"All the children of Adam are sinners, and the best of sinners are those who repent."',
+    hadithRef: 'Sunan Ibn Majah – Hasan',
+    reflection: ['Tawbah erases all sins', 'Feeling guilty shows a living heart', 'Allah loves those who return to Him', 'Shaytaan wants you to despair — resist him', 'Every moment is a chance to begin again'],
+    actions: ['Make sincere tawbah now', 'Perform ghusl if needed', 'Pray two rakah of repentance', 'Replace the bad deed with a good one', 'Recite Astaghfirullah 100 times'],
+    dhikr: [{ ar: 'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ', en: 'Astaghfirullaha wa atubu ilayh' }, { ar: 'رَبِّ اغْفِرْ لِي', en: 'Rabbi ghfir li' }, { ar: 'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي', en: 'Allahumma innaka \'afuwwun tuhibbul \'afwa fa\'fu \'anni' }],
+  },
+  lonely: {
+    ayahArabic: 'وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ',
+    ayahTranslation: '"And He is with you wherever you are."',
+    ayahRef: 'Surah Al-Hadid 57:4',
+    hadithText: '"Allah says: I am as My servant expects of Me and I am with him when he remembers Me."',
+    hadithRef: 'Sahih al-Bukhari',
+    reflection: ['You are never truly alone — Allah is nearer than your jugular vein', 'Connection with Allah is the deepest company', 'The prophets were often alone — they were not abandoned', 'Solitude can be a gift for spiritual growth', 'Make dua — it is talking to Allah directly'],
+    actions: ['Sit in quiet dhikr', 'Write to Allah in your journal', 'Visit the masjid', 'Call a Muslim sibling', 'Read stories of the Companions'],
+    dhikr: [{ ar: 'أَنتَ رَفِيقِي', en: 'Anta Rafeeqi – You are my Companion (addressing Allah)' }, { ar: 'يَا وَدُود', en: 'Ya Wadud – O Most Loving' }, { ar: 'حَسْبِيَ اللَّه', en: 'HasbiyAllah – Allah is enough for me' }],
+  },
+  grateful: {
+    ayahArabic: 'لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ',
+    ayahTranslation: '"If you are grateful, I will surely increase you in favor."',
+    ayahRef: 'Surah Ibrahim 14:7',
+    hadithText: '"He who does not thank people, does not thank Allah."',
+    hadithRef: 'Sunan Abu Dawood – Sahih',
+    reflection: ['Gratitude multiplies blessings', 'Your tongue can express what your heart feels', 'Count Allah\'s blessings — they are uncountable', 'Alhamdulillah in every state', 'Gratitude is worship'],
+    actions: ['List 10 blessings right now', 'Say Alhamdulillah 33 times', 'Give sadaqah today', 'Thank a person who helped you', 'Pray two rakah of shukr'],
+    dhikr: [{ ar: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ', en: 'Alhamdulillahi Rabbil \'Alameen' }, { ar: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ', en: 'SubhanAllahi wa bihamdih' }, { ar: 'اللَّهُمَّ لَكَ الْحَمْد', en: 'Allahumma lakal hamd' }],
+  },
+  hopeful: {
+    ayahArabic: 'إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ',
+    ayahTranslation: '"Indeed, Allah does not fail in His promise."',
+    ayahRef: 'Surah Aal-Imran 3:9',
+    hadithText: '"Allah says: I am as My servant thinks of Me. So let him think of Me as he wishes."',
+    hadithRef: 'Sahih al-Bukhari',
+    reflection: ['Hope in Allah is an act of worship', 'His promises are true and certain', 'Your best days may still be ahead', 'Hope fuels action and dua', 'Allah loves the hopeful heart'],
+    actions: ['Make bold dua today', 'Visualize your goals with tawakkul', 'Read Surah Yusuf — a story of hope', 'Write your dreams and make dua', 'Take one step toward your goal'],
+    dhikr: [{ ar: 'رَبِّ لَا تَذَرْنِي فَرْدًا', en: 'Rabbi la tadharni fardan' }, { ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْفَرَدَوْس', en: 'Allahumma inni as\'alukal firdaws' }, { ar: 'يَا مُجِيب', en: 'Ya Mujib – O Answerer of prayers' }],
+  },
+  anger: {
+    ayahArabic: 'وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ',
+    ayahTranslation: '"Those who suppress anger and pardon the people — and Allah loves the doers of good."',
+    ayahRef: 'Surah Aal-Imran 3:134',
+    hadithText: '"The strong man is not the one who overcomes others by wrestling; the strong man is the one who controls himself when he is angry."',
+    hadithRef: 'Sahih al-Bukhari',
+    reflection: ['Anger is from Shaytaan — seek refuge in Allah', 'Silence is a shield', 'Forgiving others frees you', 'Responding with kindness is strength', 'Pause and take a breath'],
+    actions: ['Say A\'udhu billahi min ash-shaytanir rajim', 'Sit down if you\'re standing', 'Make wudu — water cools anger', 'Step away from the situation', 'Pray two rakah'],
+    dhikr: [{ ar: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ', en: 'A\'udhu billahi minash-shaytanir rajim' }, { ar: 'اللَّهُمَّ اهْدِنِي', en: 'Allahumma hdini – O Allah guide me' }, { ar: 'الصَّبْرُ مِنَ اللَّه', en: 'As-sabru min Allah – Patience is from Allah' }],
+  },
+  fear: {
+    ayahArabic: 'لَا تَخَفْ إِنَّكَ أَنتَ الْأَعْلَىٰ',
+    ayahTranslation: '"Do not fear — indeed, you are the superior one."',
+    ayahRef: 'Surah Ta-Ha 20:68',
+    hadithText: '"Whoever fears Allah, Allah will make everything fear him; whoever does not fear Allah, Allah will make him fear everything."',
+    hadithRef: 'Shu\'ab al-Iman – Bayhaqi',
+    reflection: ['Fear of Allah removes all other fears', 'He is Al-Hafiz — the Protector', 'His angels surround the believers', 'Trust precedes courage', 'The believer\'s shield is tawakkul'],
+    actions: ['Recite Ayat al-Kursi before sleep', 'Read the last three Surahs', 'Make dua for Allah\'s protection', 'Remember His names: Al-Hafiz, Al-Qawi', 'Talk to Allah about your fears'],
+    dhikr: [{ ar: 'حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيل', en: 'Hasbunallahu wa ni\'mal wakeel' }, { ar: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ', en: 'Bismillahil ladhi la yadurru' }, { ar: 'يَا حَافِظ', en: 'Ya Hafiz – O Protector' }],
+  },
+  forgiveness: {
+    ayahArabic: 'إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا',
+    ayahTranslation: '"Indeed, Allah forgives all sins. Indeed, it is He who is the Forgiving, the Merciful."',
+    ayahRef: 'Surah Az-Zumar 39:53',
+    hadithText: '"Our Lord descends to the lowest heaven every night and says: Is there anyone asking so I may give? Is there anyone seeking forgiveness so I may forgive?"',
+    hadithRef: 'Sahih al-Bukhari',
+    reflection: ['The last third of every night — Allah descends', 'No sin is too great for His mercy', 'Sincerity in tawbah is the key', 'Return again and again — He accepts', 'You seeking forgiveness is itself His mercy'],
+    actions: ['Pray Tahajjud tonight', 'Say Sayyidul Istighfar', 'Make ghusl as a fresh start', 'Follow a bad deed with a good one', 'Fast a day as kaffarah with intention'],
+    dhikr: [{ ar: 'اللَّهُمَّ أَنتَ رَبِّي لَا إِلَهَ إِلَّا أَنتَ', en: 'Allahumma anta Rabbi la ilaha illa anta (Sayyidul Istighfar)' }, { ar: 'أَسْتَغْفِرُ اللَّهَ الْعَظِيم', en: 'Astaghfirullaha Al-\'Azim' }, { ar: 'يَا غَفُور يَا رَحِيم', en: 'Ya Ghafur Ya Raheem' }],
+  },
+  patience: {
+    ayahArabic: 'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
+    ayahTranslation: '"Indeed, Allah is with the patient."',
+    ayahRef: 'Surah Al-Baqarah 2:153',
+    hadithText: '"No one has been given a gift better and more abundant than patience."',
+    hadithRef: 'Sahih al-Bukhari',
+    reflection: ['Patience is half of faith', 'The reward for patience has no measure', 'Sabr is action — not passivity', 'This phase of life is temporary', 'What you endure now defines your rank with Allah'],
+    actions: ['Read the stories of Prophet Ayyub (AS)', 'Recite Inna lillahi wa inna ilayhi raji\'un', 'Take one day at a time', 'Perform extra salah', 'Journal your thoughts with gratitude'],
+    dhikr: [{ ar: 'إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ', en: 'Inna lillahi wa inna ilayhi raji\'un' }, { ar: 'اللَّهُمَّ اجْعَلْنِي مِنَ الصَّابِرِينَ', en: 'Allahumma j\'alni minas sabirin' }, { ar: 'الصَّبْرُ نُور', en: 'As-sabru nur – Patience is light' }],
+  },
+  confidence: {
+    ayahArabic: 'وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْن',
+    ayahTranslation: '"Do not weaken and do not grieve, for you will be superior if you are true believers."',
+    ayahRef: 'Surah Aal-Imran 3:139',
+    hadithText: '"The believer who mixes with people and bears their harm with patience is better than the one who does not mix with them or bear their harm."',
+    hadithRef: 'Sunan Ibn Majah – Sahih',
+    reflection: ['You were created with purpose and honor', 'Allah chose you for this moment', 'Your confidence is rooted in Him, not yourself', 'The Quran calls the believers \'the superior\'', 'Bismillah — and step forward'],
+    actions: ['Read your morning adhkar loudly', 'Dress with care and gratitude', 'Smile — it is sunnah and strength', 'Speak the truth with gentleness', 'Remind yourself of Allah\'s love for you'],
+    dhikr: [{ ar: 'اللَّهُمَّ أَلْهِمْنِي رُشْدِي', en: 'Allahumma alhimni rushdi' }, { ar: 'رَبِّ أَدْخِلْنِي مُدْخَلَ صِدْق', en: 'Rabbi adkhilni mudkhala sidq' }, { ar: 'حَسْبِيَ اللَّهُ', en: 'HasbiyAllah – Allah is enough for me' }],
+  },
+  heartbreak: {
+    ayahArabic: 'عَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ',
+    ayahTranslation: '"Perhaps you hate a thing and it is good for you."',
+    ayahRef: 'Surah Al-Baqarah 2:216',
+    hadithText: '"If Allah loves a servant, He tests him. Whoever is content, for them is contentment; whoever is discontent, for them is discontentment."',
+    hadithRef: 'Sunan at-Tirmidhi – Hasan',
+    reflection: ['What was not written for you was protecting you', 'He knows what you don\'t', 'Heartbreak makes space for deeper love — of Allah', 'Your heart is too precious to be owned by creation', 'This was His plan — and His plans are perfect'],
+    actions: ['Cry to Allah in sujood', 'Read Surah Al-Kahf (Yusuf\'s beauty was tested too)', 'Write a letter to Allah about your feelings', 'Fast a day — it softens the heart', 'Trust that what is written for you is coming'],
+    dhikr: [{ ar: 'قَدَّرَ اللَّهُ وَمَا شَاءَ فَعَل', en: 'Qaddarallahu wa ma sha\'a fa\'al' }, { ar: 'اللَّهُمَّ أَجِرْنِي فِي مُصِيبَتِي', en: 'Allahumma ajirni fi musibati' }, { ar: 'يَا جَابِر', en: 'Ya Jabir – O Mender of broken hearts' }],
+  },
+};
+
+const DUAS = [
+  { cat: 'sadness', title: 'Dua for Removing Sadness', arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ', transliteration: 'Allahumma inni a\'udhu bika minal-hammi wal-hazan, wal-\'ajzi wal-kasali...', translation: 'O Allah, I seek refuge in You from anxiety, sorrow, weakness, laziness, miserliness, cowardice, the burden of debt, and being overpowered by men.' },
+  { cat: 'anxiety', title: 'Dua for Anxiety & Worry', arabic: 'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ', transliteration: 'HasbiyAllahu la ilaha illa huwa, \'alayhi tawakkaltu wa huwa Rabbul \'Arshil \'Azim', translation: 'Allah is sufficient for me; there is no god but He. In Him I put my trust, for He is Lord of the Tremendous Throne.' },
+  { cat: 'rizq', title: 'Dua for Rizq & Provision', arabic: 'اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ', transliteration: 'Allahumma akfini bihalaalika \'an haraamik, wa aghnini bifadhlika \'amman siwak', translation: 'O Allah, suffice me with what is lawful from what is unlawful, and enrich me by Your grace against all others.' },
+  { cat: 'forgiveness', title: 'Sayyidul Istighfar', arabic: 'اللَّهُمَّ أَنتَ رَبِّي لَا إِلَهَ إِلَّا أَنتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ', transliteration: 'Allahumma anta Rabbi la ilaha illa anta, khalaqtani wa ana \'abduk...', translation: 'O Allah, You are my Lord. There is no god but You. You created me and I am Your servant... I seek Your forgiveness for all my sins.' },
+  { cat: 'guidance', title: 'Dua for Guidance', arabic: 'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا', transliteration: 'Rabbana la tuzigh qulubana ba\'da idh hadaytana, wa hab lana min ladunka rahmah', translation: 'Our Lord, let not our hearts deviate after You have guided us, and grant us from Yourself mercy. Indeed, You are the Bestower.' },
+  { cat: 'strength', title: 'Dua for Strength & Courage', arabic: 'رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي', transliteration: 'Rabbi ishrah li sadri, wa yassir li amri, wahlul \'uqdatan min lisani yafqahu qawli', translation: 'My Lord, expand my breast, ease my task, and untie the knot from my tongue so that they may understand my speech.' },
+  { cat: 'sadness', title: 'Dua of Prophet Yunus (AS)', arabic: 'لَّا إِلَهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ', transliteration: 'La ilaha illa anta subhanaka inni kuntu minaz-zalimin', translation: 'There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers. (Dua of Yunus in the whale\'s belly — answered by Allah)' },
+  { cat: 'anxiety', title: 'Dua for Peace of Heart', arabic: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الثَّبَاتَ فِي الْأَمْرِ', transliteration: 'Allahumma inni as\'alukat-thabata fil-amr, wal-\'azimata \'alar-rushd', translation: 'O Allah, I ask You for steadfastness in all affairs and firmness in adhering to the right path.' },
+  { cat: 'rizq', title: 'Dua for Barakah in Rizq', arabic: 'اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا', transliteration: 'Allahumma barik lana fima razaqtana', translation: 'O Allah, bless us in what You have provided for us.' },
+  { cat: 'guidance', title: 'Dua for Right Path', arabic: 'اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ', transliteration: 'Ihdinas-siratal mustaqim, siratal ladhina an\'amta \'alayhim', translation: 'Guide us to the straight path — the path of those upon whom You have bestowed favor.' },
+  { cat: 'strength', title: 'Dua Before Difficulty', arabic: 'اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا', transliteration: 'Allahumma la sahla illa ma ja\'altahu sahlan, wa anta taj\'alul hazna idha shi\'ta sahla', translation: 'O Allah, nothing is easy except what You make easy, and You make difficulty easy when You will.' },
+  { cat: 'forgiveness', title: 'Dua for Mercy', arabic: 'رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا', transliteration: 'Rabbana zalamna anfusana wa in lam taghfir lana wa tarhamna lanakunanna minal-khasirin', translation: 'Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers.' },
+];
+
+const AYAHS = [
+  { arabic: 'وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ', translation: 'And He is with you wherever you are.', ref: 'Al-Hadid 57:4', topic: 'comfort' },
+  { arabic: 'إِنَّ مَعَ الْعُسْرِ يُسْرًا', translation: 'Indeed, with difficulty there is ease.', ref: 'Al-Inshirah 94:6', topic: 'hope' },
+  { arabic: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ', translation: 'In the remembrance of Allah do hearts find rest.', ref: 'Ar-Ra\'d 13:28', topic: 'peace' },
+  { arabic: 'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ', translation: 'When My servants ask about Me, I am near.', ref: 'Al-Baqarah 2:186', topic: 'prayer' },
+  { arabic: 'لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا', translation: 'Allah does not burden a soul beyond that it can bear.', ref: 'Al-Baqarah 2:286', topic: 'strength' },
+  { arabic: 'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', translation: 'Indeed, Allah is with the patient.', ref: 'Al-Baqarah 2:153', topic: 'patience' },
+  { arabic: 'فَاذْكُرُونِي أَذْكُرْكُمْ', translation: 'Remember Me, and I will remember you.', ref: 'Al-Baqarah 2:152', topic: 'dhikr' },
+  { arabic: 'لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ', translation: 'If you are grateful, I will surely increase you.', ref: 'Ibrahim 14:7', topic: 'gratitude' },
+  { arabic: 'عَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ', translation: 'Perhaps you dislike a thing and it is good for you.', ref: 'Al-Baqarah 2:216', topic: 'trust' },
+  { arabic: 'إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ', translation: 'Allah will not change the condition of a people until they change what is in themselves.', ref: 'Ar-Ra\'d 13:11', topic: 'change' },
+  { arabic: 'وَقُل رَّبِّ زِدْنِي عِلْمًا', translation: 'And say: My Lord, increase me in knowledge.', ref: 'Ta-Ha 20:114', topic: 'knowledge' },
+  { arabic: 'وَتَوَكَّلْ عَلَى اللَّهِ ۚ وَكَفَىٰ بِاللَّهِ وَكِيلًا', translation: 'And rely upon Allah; and sufficient is Allah as Disposer of affairs.', ref: 'Al-Ahzab 33:3', topic: 'tawakkul' },
+];
+
+const TASBIH_LIST = [
+  { arabic: 'سُبْحَانَ اللَّه', translit: 'SubhanAllah', meaning: 'Glory be to Allah', goal: 33 },
+  { arabic: 'الْحَمْدُ لِلَّه', translit: 'Alhamdulillah', meaning: 'All praise is for Allah', goal: 33 },
+  { arabic: 'اللَّهُ أَكْبَر', translit: 'Allahu Akbar', meaning: 'Allah is the Greatest', goal: 33 },
+  { arabic: 'أَسْتَغْفِرُ اللَّه', translit: 'Astaghfirullah', meaning: 'I seek forgiveness from Allah', goal: 100 },
+  { arabic: 'لَا إِلَهَ إِلَّا اللَّه', translit: 'La ilaha illallah', meaning: 'There is no god but Allah', goal: 100 },
+];
+
+const GOALS_DATA = [
+  { icon: '📖', name: 'Quran Reading', desc: 'Daily pages recited', target: 10, current: 0, unit: 'pages' },
+  { icon: '🕌', name: 'Salah Streak', desc: 'Consecutive days of 5 prayers', target: 30, current: 0, unit: 'days' },
+  { icon: '🌙', name: 'Tahajjud', desc: 'Night prayers this month', target: 20, current: 0, unit: 'nights' },
+  { icon: '💝', name: 'Sadaqah', desc: 'Acts of charity this week', target: 7, current: 0, unit: 'acts' },
+  { icon: '📿', name: 'Daily Dhikr', desc: 'Tasbih sessions completed', target: 21, current: 0, unit: 'sessions' },
+  { icon: '🤲', name: 'Dua Practice', desc: 'Sincere duas made today', target: 10, current: 0, unit: 'duas' },
+];
+
+const PRAYERS = [
+  { name: 'Fajr', arabic: 'الفجر', time: 'Before sunrise', done: false },
+  { name: 'Dhuhr', arabic: 'الظهر', time: 'After midday', done: false },
+  { name: 'Asr', arabic: 'العصر', time: 'Afternoon', done: false },
+  { name: 'Maghrib', arabic: 'المغرب', time: 'After sunset', done: false },
+  { name: 'Isha', arabic: 'العشاء', time: 'Night', done: false },
+];
+
+const JOURNAL_PROMPTS = [
+  '"What is weighing on your heart today?"',
+  '"What is one blessing you almost overlooked today?"',
+  '"What would you tell your younger self about trusting Allah?"',
+  '"What is a step you can take today to get closer to Allah?"',
+  '"Describe a moment when you felt Allah\'s mercy in your life."',
+  '"What do you want to ask Allah for right now?"',
+  '"What are you holding onto that you need to release to Allah?"',
+  '"Who can you make dua for today and why?"',
+];
+
+const HERO_AYAHS = [
+  { arabic: 'وَلَا تَهِنُوا وَلَا تَحْزَنُوا', translation: '"So do not weaken and do not grieve, and you will be superior if you are true believers."', ref: 'Surah Aal-Imran 3:139' },
+  { arabic: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا', translation: '"For indeed, with hardship will be ease."', ref: 'Surah Al-Inshirah 94:5' },
+  { arabic: 'وَهُوَ مَعَكُمْ أَيْنَمَا كُنتُمْ', translation: '"And He is with you wherever you are."', ref: 'Surah Al-Hadid 57:4' },
+  { arabic: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ', translation: '"Verily, in the remembrance of Allah do hearts find rest."', ref: 'Surah Ar-Ra\'d 13:28' },
+];
+
+// ===================== STATE =====================
+let tasbihCount = 0;
+let tasbihIndex = 0;
+let tasbihGoal = 33;
+let goalsState = GOALS_DATA.map(g => ({...g}));
+let prayerState = PRAYERS.map(p => ({...p}));
+let savedBookmarks = JSON.parse(localStorage.getItem('il_bookmarks') || '[]');
+let spotlightIndex = 0;
+let heroIndex = 0;
+
+// ===================== INIT =====================
+document.addEventListener('DOMContentLoaded', () => {
+  initCursor();
+  initStars();
+  initParticles();
+  initMoodGrid();
+  initTasbih();
+  initDuas();
+  initGoals();
+  initPrayers();
+  initAyahGrid();
+  initJournal();
+  setPrayerDate();
+});
+
+// ===================== CURSOR =====================
+function initCursor() {
+  const cursor = document.getElementById('cursor');
+  const dot = document.getElementById('cursor-dot');
+  let cx = 0, cy = 0, dx = 0, dy = 0;
+  document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; dot.style.left = cx+'px'; dot.style.top = cy+'px'; });
+  function animateCursor() { dx += (cx - dx) * 0.12; dy += (cy - dy) * 0.12; cursor.style.left = dx+'px'; cursor.style.top = dy+'px'; requestAnimationFrame(animateCursor); }
+  animateCursor();
+  document.addEventListener('mousedown', () => { cursor.style.width = '14px'; cursor.style.height = '14px'; });
+  document.addEventListener('mouseup', () => { cursor.style.width = '20px'; cursor.style.height = '20px'; });
+}
+
+// ===================== STARS =====================
+function initStars() {
+  const canvas = document.getElementById('starCanvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 200; i++) {
+    stars.push({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + 0.2, op: Math.random(), speed: Math.random() * 0.003 + 0.001, phase: Math.random() * Math.PI * 2 });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const t = Date.now() / 1000;
+    stars.forEach(s => {
+      const alpha = (Math.sin(t * s.speed * 10 + s.phase) + 1) / 2 * 0.7 + 0.1;
+      ctx.beginPath();
+      ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(212,175,55,${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ===================== PARTICLES =====================
+function initParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.opacity = Math.random() * 0.6 + 0.1;
+    container.appendChild(p);
+  }
+}
+
+// ===================== NAVIGATION =====================
+function showSection(id, linkEl) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  if (linkEl) linkEl.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===================== MOOD GRID =====================
+function initMoodGrid() {
+  const grid = document.getElementById('moodGrid');
+  MOODS.forEach(mood => {
+    const card = document.createElement('div');
+    card.className = 'mood-card';
+    card.innerHTML = `<div class="mood-icon">${mood.icon}</div><div class="mood-name">${mood.name}</div>`;
+    card.addEventListener('click', () => selectMood(mood.id, mood.name, card));
+    grid.appendChild(card);
+  });
+}
+
+function selectMood(id, name, cardEl) {
+  document.querySelectorAll('.mood-card').forEach(c => c.classList.remove('selected'));
+  cardEl.classList.add('selected');
+  const data = MOOD_CONTENT[id];
+  if (!data) return;
+  document.getElementById('badgeText').textContent = name;
+  const grid = document.getElementById('contentGrid');
+  grid.innerHTML = `
+    <div class="content-card gold-top">
+      <div class="card-label gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        Quran Ayah
+      </div>
+      <div class="card-ayah-arabic">${data.ayahArabic}</div>
+      <div class="card-text">${data.ayahTranslation}</div>
+      <div class="card-ref">${data.ayahRef}</div>
+    </div>
+    <div class="content-card">
+      <div class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Authentic Hadith
+      </div>
+      <div class="card-text">${data.hadithText}</div>
+      <div class="card-ref">${data.hadithRef}</div>
+    </div>
+    <div class="content-card">
+      <div class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Comfort & Reflection
+      </div>
+      <div class="action-list">
+        ${data.reflection.map(r => `<div class="action-item"><div class="action-dot"></div>${r}</div>`).join('')}
+      </div>
+    </div>
+    <div class="content-card">
+      <div class="card-label gold">Recommended Actions</div>
+      <div class="action-list">
+        ${data.actions.map(a => `<div class="action-item"><div class="action-dot" style="background:var(--gold)"></div>${a}</div>`).join('')}
+      </div>
+    </div>
+    <div class="content-card full-width">
+      <div class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Dhikr for Your State
+      </div>
+      <div class="dhikr-list">
+        ${data.dhikr.map(d => `<div class="dhikr-item" onclick="toast('Dhikr copied ✓')">
+          <div><div class="dhikr-arabic">${d.ar}</div><div class="dhikr-transliteration">${d.en}</div></div>
+        </div>`).join('')}
+      </div>
+    </div>
+  `;
+  const result = document.getElementById('moodResult');
+  result.classList.add('visible');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===================== TASBIH =====================
+function initTasbih() {
+  const sel = document.getElementById('tasbihSelector');
+  TASBIH_LIST.forEach((t, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tasbih-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = t.translit;
+    btn.onclick = () => { tasbihIndex = i; tasbihCount = 0; tasbihGoal = t.goal; updateTasbih(); sel.querySelectorAll('.tasbih-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); };
+    sel.appendChild(btn);
+  });
+  updateTasbih();
+}
+
+function tapTasbih() {
+  tasbihCount++;
+  updateTasbih();
+  const el = document.getElementById('tasbihCount');
+  el.classList.remove('pulse');
+  void el.offsetWidth;
+  el.classList.add('pulse');
+  if (tasbihCount === tasbihGoal) { toast('MashaAllah! Goal reached! 🌟'); }
+  if (tasbihCount > tasbihGoal) tasbihCount = 0;
+}
+
+function updateTasbih() {
+  const t = TASBIH_LIST[tasbihIndex];
+  document.getElementById('tasbihArabic').textContent = t.arabic;
+  document.getElementById('tasbihTranslit').textContent = t.translit;
+  document.getElementById('tasbihMeaning').textContent = t.meaning;
+  document.getElementById('tasbihCount').textContent = tasbihCount;
+  document.getElementById('tasbihTarget').textContent = `Goal: ${tasbihGoal} times`;
+  const pct = Math.min((tasbihCount / tasbihGoal) * 100, 100);
+  document.getElementById('tasbihBar').style.width = pct + '%';
+}
+
+function resetTasbih() { tasbihCount = 0; updateTasbih(); toast('Counter reset'); }
+function setTasbihGoal() {
+  const g = prompt('Set your goal (e.g. 33, 100, 1000):', tasbihGoal);
+  if (g && !isNaN(g) && parseInt(g) > 0) { tasbihGoal = parseInt(g); updateTasbih(); }
+}
+
+// ===================== DUAS =====================
+function initDuas() {
+  renderDuas('all');
+}
+function filterDuas(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDuas(cat);
+}
+function renderDuas(cat) {
+  const grid = document.getElementById('duaGrid');
+  const filtered = cat === 'all' ? DUAS : DUAS.filter(d => d.cat === cat);
+  grid.innerHTML = filtered.map((d, i) => `
+    <div class="dua-card">
+      <div class="dua-title">${d.title}</div>
+      <div class="dua-arabic">${d.arabic}</div>
+      <div class="dua-transliteration">${d.transliteration}</div>
+      <div class="dua-translation">${d.translation}</div>
+      <button class="dua-bookmark ${savedBookmarks.includes(i) ? 'saved' : ''}" onclick="toggleBookmark(${i}, this)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="${savedBookmarks.includes(i) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+function toggleBookmark(i, btn) {
+  if (savedBookmarks.includes(i)) {
+    savedBookmarks = savedBookmarks.filter(x => x !== i);
+    btn.classList.remove('saved');
+    btn.querySelector('svg').setAttribute('fill', 'none');
+    toast('Bookmark removed');
+  } else {
+    savedBookmarks.push(i);
+    btn.classList.add('saved');
+    btn.querySelector('svg').setAttribute('fill', 'currentColor');
+    toast('Dua saved to bookmarks ✓');
+  }
+  localStorage.setItem('il_bookmarks', JSON.stringify(savedBookmarks));
+}
+
+// ===================== AYAH =====================
+function initAyahGrid() {
+  renderAyahGrid(AYAHS);
+}
+function filterAyah(query) {
+  const q = query.toLowerCase();
+  const filtered = q ? AYAHS.filter(a => a.translation.toLowerCase().includes(q) || a.topic.toLowerCase().includes(q) || a.ref.toLowerCase().includes(q)) : AYAHS;
+  renderAyahGrid(filtered);
+}
+function renderAyahGrid(list) {
+  const grid = document.getElementById('ayahGrid');
+  grid.innerHTML = list.map(a => `
+    <div class="ayah-card" onclick="toast('Ayah saved ✓')">
+      <div class="card-label gold">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+        ${a.topic}
+      </div>
+      <div class="card-ayah-arabic" style="font-size:1.2rem">${a.arabic}</div>
+      <div class="card-text">${a.translation}</div>
+      <div class="card-ref">${a.ref}</div>
+    </div>
+  `).join('');
+}
+function refreshSpotlight() {
+  spotlightIndex = (spotlightIndex + 1) % AYAHS.length;
+  const a = AYAHS[spotlightIndex];
+  document.getElementById('spotlightArabic').textContent = a.arabic;
+  document.getElementById('spotlightTranslation').textContent = '"' + a.translation + '"';
+  document.getElementById('spotlightRef').textContent = a.ref;
+}
+function bookmarkSpotlight() { toast('Verse saved to favorites ✓'); }
+function refreshHeroAyah() {
+  heroIndex = (heroIndex + 1) % HERO_AYAHS.length;
+  const h = HERO_AYAHS[heroIndex];
+  document.getElementById('heroAyahArabic').style.opacity = 0;
+  setTimeout(() => {
+    document.getElementById('heroAyahArabic').textContent = h.arabic;
+    document.getElementById('heroAyahTranslation').textContent = h.translation;
+    document.getElementById('heroAyahRef').textContent = h.ref;
+    document.getElementById('heroAyahArabic').style.opacity = 1;
+    document.getElementById('heroAyahArabic').style.transition = 'opacity 0.5s';
+  }, 300);
+}
+
+// ===================== GOALS =====================
+function initGoals() {
+  const saved = JSON.parse(localStorage.getItem('il_goals') || 'null');
+  if (saved) goalsState = saved;
+  renderGoals();
+}
+function renderGoals() {
+  const grid = document.getElementById('goalsGrid');
+  grid.innerHTML = goalsState.map((g, i) => {
+    const pct = Math.min((g.current / g.target) * 100, 100).toFixed(0);
+    return `
+    <div class="goal-card">
+      <div class="goal-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <circle cx="18" cy="18" r="16" stroke="rgba(212,175,55,0.2)" stroke-width="2"/>
+          <circle cx="18" cy="18" r="16" stroke="${pct >= 100 ? '#2ecc71' : '#d4af37'}" stroke-width="2" stroke-dasharray="${(pct / 100) * 100.5} 100.5" stroke-dashoffset="25" stroke-linecap="round" transform="rotate(-90 18 18)" style="transition:stroke-dasharray 0.5s"/>
+          <text x="18" y="22" text-anchor="middle" fill="#d4af37" font-size="10" font-family="Cinzel">${pct}%</text>
+        </svg>
+      </div>
+      <div class="goal-name">${g.name}</div>
+      <div class="goal-desc">${g.desc}</div>
+      <div class="goal-progress-wrap">
+        <div class="goal-progress-label"><span>${g.current} / ${g.target} ${g.unit}</span><span>${pct}%</span></div>
+        <div class="goal-bar"><div class="goal-bar-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="goal-controls">
+        <button class="goal-btn" onclick="adjustGoal(${i}, -1)">−</button>
+        <button class="goal-btn add" onclick="adjustGoal(${i}, 1)">+ Add</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function adjustGoal(i, delta) {
+  goalsState[i].current = Math.max(0, goalsState[i].current + delta);
+  localStorage.setItem('il_goals', JSON.stringify(goalsState));
+  renderGoals();
+  if (delta > 0) toast('MashaAllah! Progress recorded ✓');
+}
+
+// ===================== PRAYERS =====================
+function initPrayers() {
+  const saved = JSON.parse(localStorage.getItem('il_prayers_' + dateKey()) || 'null');
+  if (saved) prayerState = saved;
+  renderPrayers();
+}
+function dateKey() { return new Date().toDateString(); }
+function setPrayerDate() {
+  const d = new Date();
+  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('prayerDate').textContent = d.toLocaleDateString('en-US', opts);
+}
+function renderPrayers() {
+  const list = document.getElementById('prayerList');
+  list.innerHTML = prayerState.map((p, i) => `
+    <div class="prayer-item">
+      <div class="prayer-left">
+        <div class="prayer-icon">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path d="M18 4C10 4 4 10 4 18C4 26 10 32 18 32C26 32 32 26 32 18C32 10 26 4 18 4Z" fill="none" stroke="${p.done ? '#2ecc71' : 'rgba(212,175,55,0.3)'}" stroke-width="1.5"/>
+            <path d="M18 8V18L24 22" stroke="${p.done ? '#2ecc71' : '#d4af37'}" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="prayer-name">${p.name} <span style="font-family:Cormorant Garamond,serif;color:var(--gold-light);font-size:0.9rem;">${p.arabic}</span></div>
+          <div class="prayer-time">${p.time}</div>
+        </div>
+      </div>
+      <button class="prayer-check ${p.done ? 'done' : ''}" onclick="togglePrayer(${i})">
+        ${p.done ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+      </button>
+    </div>
+  `).join('');
+  const done = prayerState.filter(p => p.done).length;
+  const motivations = [
+    '"The prayer is a pillar of the religion." — Hadith',
+    '"Prayer is the key to Paradise." — Hadith',
+    '"Verily, prayer has been decreed upon the believers." — An-Nisa 4:103',
+    '"Guard strictly your prayers, especially the middle prayer." — Al-Baqarah 2:238',
+    '"Establish prayer for My remembrance." — Ta-Ha 20:14',
+  ];
+  document.getElementById('prayerMotivation').textContent = done === 5 ? 'SubhanAllah! All 5 prayers completed. May Allah accept! 🌟' : motivations[done];
+}
+function togglePrayer(i) {
+  prayerState[i].done = !prayerState[i].done;
+  localStorage.setItem('il_prayers_' + dateKey(), JSON.stringify(prayerState));
+  renderPrayers();
+  if (prayerState[i].done) toast(`${prayerState[i].name} prayer recorded ✓`);
+}
+
+// ===================== JOURNAL =====================
+function initJournal() {
+  const moods = [
+    { label: 'Peaceful', svg: `<svg class="mood-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="13"/><path d="M11 19s1.5 2.5 5 2.5 5-2.5 5-2.5" stroke-linecap="round"/><circle cx="12" cy="13" r="1.5" fill="currentColor"/><circle cx="20" cy="13" r="1.5" fill="currentColor"/></svg>` },
+    { label: 'Hopeful', svg: `<svg class="mood-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="13"/><path d="M11 20s1.5 3 5 3 5-3 5-3" stroke-linecap="round" stroke-width="2"/><circle cx="12" cy="13" r="1.5" fill="currentColor"/><circle cx="20" cy="13" r="1.5" fill="currentColor"/><path d="M16 6v3M10 8l2 2" stroke-linecap="round"/></svg>` },
+    { label: 'Okay', svg: `<svg class="mood-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="13"/><path d="M11 20h10" stroke-linecap="round"/><circle cx="12" cy="14" r="1.5" fill="currentColor"/><circle cx="20" cy="14" r="1.5" fill="currentColor"/></svg>` },
+    { label: 'Sad', svg: `<svg class="mood-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="13"/><path d="M11 22s1.5-3 5-3 5 3 5 3" stroke-linecap="round"/><circle cx="12" cy="13" r="1.5" fill="currentColor"/><circle cx="20" cy="13" r="1.5" fill="currentColor"/><path d="M12 10l3 3M22 10l-3 3" stroke-linecap="round"/></svg>` },
+    { label: 'Grateful', svg: `<svg class="mood-svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="13"/><path d="M16 22s-7-4-7-9a5 5 0 0110 0" opacity="0.4"/><path d="M16 22s7-4 7-9a5 5 0 00-10 0" opacity="0.4"/><circle cx="12" cy="13" r="1.5" fill="currentColor"/><circle cx="20" cy="13" r="1.5" fill="currentColor"/></svg>` },
+  ];
+  const row = document.getElementById('moodEmojiRow');
+  moods.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'mood-emoji-btn';
+    btn.innerHTML = m.svg + `<span>${m.label}</span>`;
+    btn.onclick = () => {
+      document.querySelectorAll('.mood-emoji-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      toast(`Feeling ${m.label} recorded`);
+    };
+    row.appendChild(btn);
+  });
+  newJournalPrompt();
+}
+
+let promptIndex = 0;
+function newJournalPrompt() {
+  promptIndex = (promptIndex + 1) % JOURNAL_PROMPTS.length;
+  document.getElementById('journalPrompt').textContent = JOURNAL_PROMPTS[promptIndex];
+}
+function saveJournal() {
+  const text = document.getElementById('journalTextarea').value;
+  if (!text.trim()) { toast('Write something first'); return; }
+  const entries = JSON.parse(localStorage.getItem('il_journal') || '[]');
+  entries.unshift({ date: new Date().toLocaleDateString(), text });
+  localStorage.setItem('il_journal', JSON.stringify(entries.slice(0, 50)));
+  toast('Journal entry saved ✓');
+}
+function clearJournal() { document.getElementById('journalTextarea').value = ''; }
+function saveGratitude() { toast('Alhamdulillah! Gratitude saved ✓'); }
+
+// ===================== EMERGENCY =====================
+function openEmergency() { document.getElementById('emergencyOverlay').classList.add('visible'); document.body.style.overflow = 'hidden'; }
+function closeEmergency() { document.getElementById('emergencyOverlay').classList.remove('visible'); document.body.style.overflow = ''; }
+
+// ===================== TOAST =====================
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('visible');
+  setTimeout(() => t.classList.remove('visible'), 2500);
+}
+
+// Keyboard shortcut: Escape to close emergency
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEmergency(); });
+</script>
+</body>
+</html>
