@@ -42,7 +42,7 @@ To run this project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/imanlift.git
+git clone https://github.com/Paim41/imanlift.git
 
 # Navigate into the project
 cd imanlift
