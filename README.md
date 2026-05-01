@@ -2,8 +2,7 @@
 
 ImanLift is a modern, interactive web platform designed to uplift faith, inspire reflection, and provide a calming digital experience. Built with a clean UI and smooth animations, the website blends technology with spirituality to create meaningful engagement for users.
 
-🔗 Live Website: https://imanlift.vercel.app
-
+🔗 Live Website: http://www.imanlift.my.id/
 ---
 
 ## ✨ Features
